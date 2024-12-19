@@ -13,12 +13,12 @@ router.post('/', async (req, res) => {
     }
 
     // Fetch weather data
-    const weatherData = await WeatherService.getWeather(city);
+    const weatherData = await WeatherService.getWeatherForCity(city);
 
     // Save city to search history
-    await HistoryService.saveSearch(city);
+    await HistoryService.addCity(city);
 
-    res.status(200).json(weatherData);
+    return res.status(200).json(weatherData);
   } catch (error) {
     console.error('Error fetching weather data:', error);
     res.status(500).json({ error: 'Unable to fetch weather data' });
@@ -27,7 +27,7 @@ router.post('/', async (req, res) => {
 
 router.get('/history', async (req, res) => {
   try {
-    const history = await HistoryService.getHistory();
+    const history = await HistoryService.getCities();
 
     res.status(200).json(history);
   } catch (error) {
@@ -45,7 +45,7 @@ router.delete('/history/:id', async (req, res) => {
       return res.status(400).json({ error: 'City ID is required' });
     }
 
-    await HistoryService.deleteSearch(id);
+    await HistoryService.removeCity(id);
 
     res.status(200).json({ message: 'City deleted from history' });
   } catch (error) {
