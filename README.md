@@ -7,7 +7,7 @@ This is a homework assignment for the software development bootcamp sponsered by
 
 ## Installation
 
-You can access this via you're prefered web browser.
+You can access this via your prefered web browser.
 
 ## Usage
 
@@ -21,8 +21,4 @@ N/A
 
 Please refer to the LICENSE in the repository.
 
-
-## Demonstration Video
-
-[Watch the demonstration video]()
 ---
