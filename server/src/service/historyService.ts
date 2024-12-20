@@ -1,5 +1,6 @@
 import fs from 'fs/promises';
 import path from 'path';
+import { fileURLToPath } from 'url';
 
 // Define the City class
 class City {
@@ -13,13 +14,20 @@ class City {
 }
 
 class HistoryService {
-  private filePath = path.join(__dirname, '../../data/searchHistory.json');
+  private filePath: string;
+
+  constructor() {
+    // Convert import.meta.url to file path
+    const __filename = fileURLToPath(import.meta.url);
+    const __dirname = path.dirname(__filename);
+    this.filePath = path.join(__dirname, '../../db/db.json');
+  }
 
   // Read the JSON file
   private async read(): Promise<City[]> {
     try {
-      const data = await fs.readFile(this.filePath, 'utf-8');
-      return JSON.parse(data) as City[];
+      const data = await fs.readFile(this.filePath, { encoding: 'utf-8', flag: 'a+' });
+      return data ? JSON.parse(data) : [];
     } catch (error) {
       console.error('Error reading search history:', error);
       return [];
@@ -59,3 +67,4 @@ class HistoryService {
 }
 
 export default new HistoryService();
+
