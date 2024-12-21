@@ -6,17 +6,17 @@ const router = Router();
 
 router.post('/', async (req, res) => {
   try {
-    const { city } = req.body;
+    const { cityName } = req.body;
 
-    if (!city) {
+    if (!cityName) {
       return res.status(400).json({ error: 'City name is required' });
     }
 
     // Fetch weather data
-    const weatherData = await WeatherService.getWeatherForCity(city);
+    const weatherData = await WeatherService.getWeatherForCity(cityName);
 
     // Save city to search history
-    await HistoryService.addCity(city);
+    await HistoryService.addCity(cityName);
 
     return res.status(200).json(weatherData);
   } catch (error) {

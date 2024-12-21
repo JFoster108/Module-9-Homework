@@ -20,7 +20,7 @@ class Weather {
 
 class WeatherService {
   private baseURL = 'https://api.openweathermap.org/data/2.5';
-  private apiKey = process.env.OPENWEATHER_API_KEY;
+  private apiKey = process.env.API_KEY;
 
   // Fetch location data
   private async fetchLocationData(query: string): Promise<any> {
